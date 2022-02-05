@@ -1,4 +1,4 @@
-# AVOID
+# AVOID GAME
 
 import sys, menu, math, obstacles, pygame, player, screen, void, levels
 
