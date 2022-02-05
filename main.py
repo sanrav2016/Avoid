@@ -1,3 +1,5 @@
+# AVOID
+
 import sys, menu, math, obstacles, pygame, player, screen, void, levels
 
 pygame.init()
