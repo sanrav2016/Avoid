@@ -1,4 +1,4 @@
-import pygame, screen, math
+import screen, math, random
 
 level = 0
 
@@ -7,6 +7,9 @@ current_timer = 0
 local_player = None
 local_void = None
 local_time = 0
+
+bpm = 120
+bps = bpm / 60
 
 class Level():
     def __init__(self, name, time, penalty, gain, v, a, void_color, void_hover_color, events=[]):
@@ -109,27 +112,27 @@ levels = [
           events=[
               Event(start=0,
                     end=3,
-                    function=lambda: (screen.text("Level 2: Spirals", screen.colors["orange"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, FAST IMAGERY", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
+                    function=lambda: (screen.text("Level 2: Spirals", screen.colors["orange"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
               ),
               Event(start=5,
                     end=5,
-                    function=lambda: local_void.change_curve_offset(5000, -95000)
+                    function=lambda: local_void.change_curve_offset(-95000, goal=5000)
               ),
               Event(start=5,
                     end=10,
-                    function=lambda: local_void.change_curve_offset(500, -50)
+                    function=lambda: local_void.change_curve_offset(-50, goal=500)
               ),
               Event(start=10,
                     end=15,
-                    function=lambda: local_void.change_curve_offset(-500, -3)
+                    function=lambda: local_void.change_curve_offset(-3, goal=-500)
               ),
               Event(start=15,
                     end=20,
-                    function=lambda: local_void.change_curve_offset(500, 3)
+                    function=lambda: local_void.change_curve_offset(3, goal=500)
               ),
               Event(start=20,
                     end=25,
-                    function=lambda: local_void.change_curve_offset(-500, -3)
+                    function=lambda: local_void.change_curve_offset(-3, goal=-500)
               )
           ]
     ),
@@ -227,17 +230,17 @@ levels = [
           ]
     ),
     Level(name="Level 6",
-          time=60,
-          penalty=5,
-          gain=5,
-          v=[0, 1],
+          time=30,
+          penalty=0,
+          gain=10,
+          v=[2, 3],
           a=[0, 1],
           void_color=screen.colors["red"],
           void_hover_color=screen.colors["white"],
           events=[
                     Event(start=0,
                           end=3,
-                          function=lambda: (screen.text("Level 6: Light Show", screen.colors["white"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, FAST IMAGERY", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
+                          function=lambda: (screen.text("Level 6: Light Show", screen.colors["white"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
                     )
           ]
     )

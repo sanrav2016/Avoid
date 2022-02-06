@@ -38,7 +38,10 @@ class Void():
             level = levels.levels[levels.level]
             if abs(round(self.motion.current_velocity(time), 4)) <= 1:
                 v = random.randrange(level.v[0], level.v[1])
-                a = -random.randrange(level.a[0], level.a[1])
+                i = 1
+                if v < 0: i = -1
+                a = -i * random.randrange(level.a[0], level.a[1])
+                if v == 0: a = 0
                 self.motion.change_motion(time=time, init_velocity=v, acceleration=a)
         else:
             if origin == None: origin = self.motion.origin
@@ -50,8 +53,10 @@ class Void():
     def change_size(self, change):
         self.angle_offset += change
 
-    def change_curve_offset(self, goal, change):
-        if self.curve_offset != goal:
+    def change_curve_offset(self, change, goal=None):
+        if goal:
+            if self.curve_offset != goal: self.curve_offset += change
+        else:
             self.curve_offset += change
 
     def change_color(self, goal, change=None):

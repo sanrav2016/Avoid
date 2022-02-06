@@ -60,6 +60,12 @@ def render_loop_end(events):
     frames += 1
 
 def init_game():
+    level = levels.levels[levels.level]
+    screen.surface.fill(screen.colors["black"])
+    screen.text(level.name, screen.colors["green"], (screen.width / 2, screen.height / 2 + 50),
+                screen.font, 30)
+    pygame.display.flip()
+    pygame.time.wait(1000)
     global game_playing, game_lost, game_lost_delay_finished, game_won, game_won_delay_finished, frames
     game_playing = True
     game_lost = False
@@ -67,7 +73,6 @@ def init_game():
     game_won = False
     game_won_delay_finished = False
     frames = 0
-    level = levels.levels[levels.level]
     levels.current_timer = level.time
     void.color = level.void_color
     void.hover_color = level.void_hover_color
@@ -129,7 +134,7 @@ while 1:
     if menu.menu_open:
         if game_playing:
             game_playing = False
-        menu.menu_loop(events)
+        menu.menu_loop(time, events)
     else:
         if not game_playing:
             init_game()

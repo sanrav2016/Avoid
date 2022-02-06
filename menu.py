@@ -6,8 +6,8 @@ for level in levels.levels:
     menu_options.append(level.name)
 selected_menu_option = 0
 
-def menu_loop(events):
-    global selected_menu_option, menu_open
+def menu_loop(time, events):
+    global selected_menu_option, menu_open, music_played
     screen.surface.fill(screen.colors["black"])
     screen.image("images/title.png", (screen.width / 2, screen.height / 2 - 100), scale=0.5)
     screen.text(menu_options[selected_menu_option], screen.colors["white"], (screen.width / 2, screen.height / 2 + 50), screen.font, 30)
@@ -23,7 +23,7 @@ def menu_loop(events):
                     30)
         rect_right = pygame.Rect(screen.width / 2 + 250, screen.height / 2 - 50, 200, 200)
     start_rect = pygame.Rect(screen.width / 2 - 100, screen.height / 2 + 125, 200, 100)
-    start_color = screen.colors["pink"]
+    start_color = screen.colors["pink"] if int(time) % 2 == 0 else screen.colors["yellow"]
     if screen.hover_over(start_rect):
         start_color = screen.colors["red"]
     screen.text("START", start_color, (screen.width / 2, screen.height / 2 + 175), screen.font, 30)
