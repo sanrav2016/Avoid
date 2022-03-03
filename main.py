@@ -2,6 +2,8 @@ import sys, menu, math, obstacles, pygame, player, screen, void, levels
 
 pygame.init()
 
+music = pygame.mixer.music
+
 frames = 0
 FRAME_RATE = 60
 
@@ -61,11 +63,14 @@ def render_loop_end(events):
 
 def init_game():
     level = levels.levels[levels.level]
+    music.pause()
     screen.surface.fill(screen.colors["black"])
     screen.text(level.name, screen.colors["green"], (screen.width / 2, screen.height / 2 + 50),
                 screen.font, 30)
     pygame.display.flip()
     pygame.time.wait(1000)
+    music.load("audio/" + level.music)
+    music.play()
     global game_playing, game_lost, game_lost_delay_finished, game_won, game_won_delay_finished, frames
     game_playing = True
     game_lost = False
@@ -95,12 +100,14 @@ def draw_loop(time):
     level = levels.levels[levels.level]
     if game_lost:
         if not game_lost_delay_finished:
+            music.pause()
             pygame.time.wait(1000)
             game_lost_delay_finished = True
         screen.text("Game over", screen.colors["red"], screen.center, screen.font, 60)
         return
     if game_won:
         if not game_won_delay_finished:
+            music.pause()
             pygame.time.wait(1000)
             game_won_delay_finished = True
         screen.text("You win!", screen.colors["yellow"], screen.center, screen.font, 60)

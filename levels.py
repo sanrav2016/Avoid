@@ -12,7 +12,7 @@ bpm = 120
 bps = bpm / 60
 
 class Level():
-    def __init__(self, name, time, penalty, gain, v, a, void_color, void_hover_color, events=[]):
+    def __init__(self, name, time, penalty, gain, v, a, void_color, void_hover_color, music, events=[]):
         self.name = name
         self.time = time
         self.penalty = penalty
@@ -22,6 +22,7 @@ class Level():
         self.void_color = void_color
         self.void_hover_color = void_hover_color
         self.events = events
+        self.music = music
 
     def run_events(self, player, void, time):
         global local_player, local_void, local_time
@@ -60,7 +61,8 @@ levels = [
                     Event(start=7,
                           end=15,
                           function=lambda: screen.text("Survive until the timer runs out!", screen.colors["pink"], (screen.width / 2, 240), screen.font, 30))
-        ]
+        ],
+        music="L0.mp3"
     ),
     Level(name="Level 1",
           time=30,
@@ -99,7 +101,8 @@ levels = [
                     end=25,
                     function=lambda: local_void.change_motion(local_time, angle=local_player.motion.angle(local_time) - 0.25 * math.pi)
               )
-          ]
+          ],
+        music="L1.mp3"
     ),
     Level(name="Level 2",
           time=30,
@@ -134,7 +137,8 @@ levels = [
                     end=25,
                     function=lambda: local_void.change_curve_offset(-3, goal=-500)
               )
-          ]
+          ],
+        music="L2.mp3"
     ),
     Level(name="Level 3",
           time=30,
@@ -157,7 +161,8 @@ levels = [
                           end=30,
                           function=lambda: local_void.change_size(1/225)
                     )
-          ]
+          ],
+        music="L3.mp3"
     ),
     Level(name="Level 4",
           time=30,
@@ -192,12 +197,13 @@ levels = [
                           end=30,
                           function=lambda: local_void.change_color(screen.colors["black"], -5)
                     )
-          ]
+          ],
+        music="L4.mp3"
     ),
     Level(name="Level 5",
           time=30,
-          penalty=5,
-          gain=5,
+          penalty=3,
+          gain=6,
           v=[3, 5],
           a=[1, 3],
           void_color=screen.colors["pink"],
@@ -205,44 +211,50 @@ levels = [
           events=[
                     Event(start=0,
                           end=3,
-                          function=lambda: screen.text("Level 5: Mirror", screen.colors["pink"], (screen.width / 2, 60), screen.font, 30)
+                          function=lambda: (screen.text("Level 5: Mirror", screen.colors["pink"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
                     ),
-                    Event(start=5,
-                          end=5,
-                          function=lambda: local_void.set_reflect([math.pi])
+                    Event(start=7,
+                          end=7,
+                          function=lambda: (local_void.set_reflect([math.pi]), local_void.motion.change_motion(time=local_time, init_velocity=7, acceleration=0))
                     ),
-                    Event(start=10,
-                          end=10,
-                          function=lambda: local_void.set_reflect([])
+                    Event(start=8,
+                          end=8,
+                          function=lambda: (local_void.set_reflect([]), local_void.motion.change_motion(time=local_time, init_velocity=3, acceleration=-1))
                     ),
-                    Event(start=15,
-                          end=15,
-                          function=lambda: local_void.set_reflect([2 * math.pi / 3, 4 * math.pi / 3])
+                    Event(start=12.5,
+                          end=12.5,
+                          function=lambda: (local_void.set_reflect([2 * math.pi / 3, 4 * math.pi / 3]), local_void.motion.change_motion(time=local_time, init_velocity=8, acceleration=0))
                     ),
-                    Event(start=20,
-                          end=20,
-                          function=lambda: local_void.set_reflect([])
+                    Event(start=13.5,
+                          end=13.5,
+                          function=lambda: (local_void.set_reflect([]), local_void.motion.change_motion(time=local_time, init_velocity=3, acceleration=-1))
                     ),
-                    Event(start=25,
-                          end=25,
-                          function=lambda: local_void.set_reflect([0.5 * math.pi, math.pi, 1.5 * math.pi])
+                    Event(start=18,
+                          end=18,
+                          function=lambda: (local_void.set_reflect([2 * math.pi / 3, 4 * math.pi / 3]), local_void.motion.change_motion(time=local_time, init_velocity=8, acceleration=0))
+                    ),
+                    Event(start=19,
+                          end=19,
+                          function=lambda: (local_void.set_reflect([]), local_void.motion.change_motion(time=local_time, init_velocity=3, acceleration=-1))
+                    ),
+                    Event(start=21,
+                          end=21,
+                          function=lambda: (local_void.set_reflect([0.5 * math.pi, math.pi, 1.5 * math.pi]), local_void.motion.change_motion(time=local_time, init_velocity=10, acceleration=0))
+                    ),
+                    Event(start=22,
+                          end=22,
+                          function=lambda: local_void.motion.change_motion(time=local_time, init_velocity=15, acceleration=0)
+                    ),
+                    Event(start=23,
+                          end=23,
+                          function=lambda: (local_void.set_reflect([]), local_void.motion.change_motion(time=local_time, init_velocity=3, acceleration=-1))
+                    ),
+                    Event(start=26,
+                          end=26,
+                          function=lambda: (local_void.set_reflect([0.5 * math.pi, math.pi, 1.5 * math.pi]), local_void.motion.change_motion(time=local_time, acceleration=4))
                     )
-          ]
-    ),
-    Level(name="Level 6",
-          time=30,
-          penalty=0,
-          gain=10,
-          v=[2, 3],
-          a=[0, 1],
-          void_color=screen.colors["red"],
-          void_hover_color=screen.colors["white"],
-          events=[
-                    Event(start=0,
-                          end=3,
-                          function=lambda: (screen.text("Level 6: Light Show", screen.colors["white"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
-                    )
-          ]
+          ],
+        music="L5.mp3"
     )
 ]
 

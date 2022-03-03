@@ -1,5 +1,7 @@
 import pygame, screen, levels
 
+music = pygame.mixer.music
+music_playing = False
 menu_open = True
 menu_options = []
 for level in levels.levels:
@@ -7,7 +9,11 @@ for level in levels.levels:
 selected_menu_option = 0
 
 def menu_loop(time, events):
-    global selected_menu_option, menu_open, music_played
+    global selected_menu_option, menu_open, music_playing
+    if not music_playing:
+        music.load("audio/L6.mp3")
+        music.play()
+        music_playing = True
     screen.surface.fill(screen.colors["black"])
     screen.image("images/title.png", (screen.width / 2, screen.height / 2 - 100), scale=0.5)
     screen.text(menu_options[selected_menu_option], screen.colors["white"], (screen.width / 2, screen.height / 2 + 50), screen.font, 30)
@@ -30,6 +36,7 @@ def menu_loop(time, events):
     pygame.draw.rect(screen.surface, start_color, start_rect, 5)
     if screen.click_inside(start_rect, events):
         menu_open = False
+        music_playing = False
     if rect_left != None:
         if screen.click_inside(rect_left, events):
             selected_menu_option -= 1
