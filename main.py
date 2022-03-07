@@ -13,6 +13,8 @@ game_lost_delay_finished = False
 game_won = False
 game_lost_delay_finished = False
 
+intro_run = False
+
 clock = pygame.time.Clock()
 
 player = player.Player(rect=pygame.Rect(0, 0, 30, 30))
@@ -62,6 +64,8 @@ def render_loop_end(events):
     frames += 1
 
 def init_game():
+    global intro_run
+    intro_run = True
     level = levels.levels[levels.level]
     level.played += 1
     if level.name != "Demo":
@@ -156,6 +160,17 @@ def draw_loop(time):
     screen.text(levels.str_time(levels.current_timer), screen.colors["lightblue"], (screen.width - 80, 105), screen.font, 40)
     level.run_events(player, void, time)
 
+def intro(time):
+    global intro_run
+    if time < 5:
+        screen.image("images/intro/1.png", screen.center)
+    elif time < 10:
+        screen.image("images/intro/2.png", screen.center)
+    elif time < 15:
+        screen.image("images/intro/3.png", screen.center)
+    elif time < 25:
+        screen.image("images/intro/4.png", screen.center)
+
 while 1:
     events = pygame.event.get()
     time = render_loop_start(events)
@@ -168,4 +183,6 @@ while 1:
             init_game()
         if frames > 0:
             draw_loop(time)
+    if not intro_run:
+        intro(time)
     render_loop_end(events)
