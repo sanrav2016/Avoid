@@ -1,4 +1,4 @@
-import sys, menu, math, obstacles, pygame, player, screen, void, levels
+import sys, menu, math, obstacles, pygame, player, screen, void, levels, random
 
 pygame.init()
 
@@ -63,6 +63,10 @@ def render_loop_end(events):
 
 def init_game():
     level = levels.levels[levels.level]
+    level.played += 1
+    if level.name != "Demo":
+        level.celebration = None
+        level.consolation = None
     music.pause()
     screen.surface.fill(screen.colors["black"])
     screen.text(level.name, screen.colors["green"], (screen.width / 2, screen.height / 2 + 50),
@@ -104,6 +108,14 @@ def draw_loop(time):
             pygame.time.wait(1000)
             game_lost_delay_finished = True
         screen.text("Game over", screen.colors["red"], screen.center, screen.font, 60)
+        consolation = ["The void compels you.", "Mastery requires patience.", "Do not fret, not just yet.", "You were supposed to avoid it.",
+                       "Click Menu to play again. You know you want to.", "Keep calm and carry on.", "So close, yet so far.", "*generic consolation message*"]
+        if not level.consolation:
+            level.consolation = random.choice(consolation)
+        l = list(screen.center)
+        l[1] += 60
+        l = tuple(l)
+        screen.text(level.consolation, screen.colors["white"], l, screen.font, 30)
         return
     if game_won:
         if not game_won_delay_finished:
@@ -111,6 +123,15 @@ def draw_loop(time):
             pygame.time.wait(1000)
             game_won_delay_finished = True
         screen.text("You win!", screen.colors["yellow"], screen.center, screen.font, 60)
+        celebration = ["The void compels you.", "Might it have been a pyrrhic victory?", "A well deserved victory.",
+                       "Nice job, you avoided it.",
+                       "Click Menu to play again. You know you want to.", "Don't let it get to your head.", "*generic celebratory message*"]
+        if not level.celebration:
+            level.celebration = random.choice(celebration)
+        l = list(screen.center)
+        l[1] += 60
+        l = tuple(l)
+        screen.text(level.celebration, screen.colors["white"], l, screen.font, 30)
         return
     void.draw(time)
     obstacles.draw_obstacles(time)

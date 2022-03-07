@@ -15,7 +15,7 @@ def menu_loop(time, events):
         music.play()
         music_playing = True
     screen.surface.fill(screen.colors["black"])
-    screen.image("images/title.png", (screen.width / 2, screen.height / 2 - 100), scale=0.5)
+    screen.image("images/title.png", (screen.width / 2, screen.height / 2 - 100), scale=0.7)
     screen.text(menu_options[selected_menu_option], screen.colors["white"], (screen.width / 2, screen.height / 2 + 50), screen.font, 30)
     rect_left = None
     rect_right = None

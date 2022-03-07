@@ -12,7 +12,7 @@ bpm = 120
 bps = bpm / 60
 
 class Level():
-    def __init__(self, name, time, penalty, gain, v, a, void_color, void_hover_color, music, events=[]):
+    def __init__(self, name, time, penalty, gain, v, a, void_color, void_hover_color, music, events=[], consolation = None, celebration = None):
         self.name = name
         self.time = time
         self.penalty = penalty
@@ -23,6 +23,9 @@ class Level():
         self.void_hover_color = void_hover_color
         self.events = events
         self.music = music
+        self.played = 0
+        self.consolation = consolation
+        self.celebration = celebration
 
     def run_events(self, player, void, time):
         global local_player, local_void, local_time
@@ -50,19 +53,24 @@ levels = [
           void_hover_color=screen.colors["lightblue"],
           events=[
                     Event(start=1,
-                          end=15,
-                          function=lambda: screen.text("Press/hold SPACE to move", screen.colors["green"], (screen.width / 2, 60), screen.font, 30)),
+                          end=30,
+                          function=lambda: screen.text("Welcome to AVOID", screen.colors["lightblue"], (screen.width / 2, 60), screen.font, 30)),
                     Event(start=3,
-                          end=15,
-                          function=lambda: screen.text("Avoid the spinning laser", screen.colors["yellow"], (screen.width/2, 120), screen.font, 30)),
+                          end=30,
+                          function=lambda: screen.text("Press/hold SPACE to move", screen.colors["green"], (screen.width / 2, 120), screen.font, 30)),
                     Event(start=5,
-                          end=15,
-                          function=lambda: screen.text("Hit the dots to gain health", screen.colors["white"], (screen.width / 2, 180), screen.font, 30)),
+                          end=30,
+                          function=lambda: screen.text("Avoid the spinning laser", screen.colors["yellow"], (screen.width/2, 180), screen.font, 30)),
                     Event(start=7,
-                          end=15,
-                          function=lambda: screen.text("Survive until the timer runs out!", screen.colors["pink"], (screen.width / 2, 240), screen.font, 30))
+                          end=30,
+                          function=lambda: screen.text("Hit the dots to gain health", screen.colors["white"], (screen.width / 2, 240), screen.font, 30)),
+                    Event(start=9,
+                          end=30,
+                          function=lambda: screen.text("Survive until the timer runs out", screen.colors["pink"], (screen.width / 2, 300), screen.font, 30))
         ],
-        music="L0.mp3"
+        music="L0.mp3",
+        consolation="Press MENU to go back",
+        celebration="Press MENU to go back"
     ),
     Level(name="Level 1",
           time=30,
