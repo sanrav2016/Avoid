@@ -76,6 +76,8 @@ def init_game():
     screen.text(level.name, screen.colors["green"], (screen.width / 2, screen.height / 2 + 50),
                 screen.font, 30)
     pygame.display.flip()
+    music.load("audio/SELECT.mp3")
+    music.play()
     pygame.time.wait(1000)
     music.load("audio/" + level.music)
     music.play()
@@ -110,6 +112,8 @@ def draw_loop(time):
         if not game_lost_delay_finished:
             music.pause()
             pygame.time.wait(1000)
+            music.load("audio/LOSE.mp3")
+            music.play()
             game_lost_delay_finished = True
         screen.text("Game over", screen.colors["red"], screen.center, screen.font, 60)
         consolation = ["The void compels you.", "Mastery requires patience.", "Do not fret, not just yet.", "You were supposed to avoid it.",
@@ -125,6 +129,8 @@ def draw_loop(time):
         if not game_won_delay_finished:
             music.pause()
             pygame.time.wait(1000)
+            music.load("audio/WIN.mp3")
+            music.play()
             game_won_delay_finished = True
         screen.text("You win!", screen.colors["yellow"], screen.center, screen.font, 60)
         celebration = ["The void compels you.", "Might it have been a pyrrhic victory?", "A well deserved victory.",

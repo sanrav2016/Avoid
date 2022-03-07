@@ -11,7 +11,7 @@ selected_menu_option = 0
 def menu_loop(time, events):
     global selected_menu_option, menu_open, music_playing
     if not music_playing:
-        music.load("audio/L6.mp3")
+        music.load("audio/LOBBY.mp3")
         music.play()
         music_playing = True
     screen.surface.fill(screen.colors["black"])
