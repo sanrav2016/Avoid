@@ -1,5 +1,9 @@
-import screen, math, random
+# Levels.py
+# Contains the data for each of the levels
 
+import screen, math
+
+# Current level data
 level = 0
 
 current_timer = 0
@@ -8,9 +12,7 @@ local_player = None
 local_void = None
 local_time = 0
 
-bpm = 120
-bps = bpm / 60
-
+# Level class, will be used to define levels later on
 class Level():
     def __init__(self, name, time, penalty, gain, v, a, void_color, void_hover_color, music, events=[], consolation = None, celebration = None):
         self.name = name
@@ -27,6 +29,9 @@ class Level():
         self.consolation = consolation
         self.celebration = celebration
 
+    # Each level is accompanied by events such as text popping up, or the motion of the void changing
+    # This function takes care of that
+    # It is run in the Main.py script
     def run_events(self, player, void, time):
         global local_player, local_void, local_time
         local_player = player
@@ -36,12 +41,16 @@ class Level():
             if event.start <= time <= event.end:
                 event.function()
 
+# Event class
 class Event():
     def __init__(self, start, end, function):
         self.start = start
         self.end = end
         self.function = function
 
+# Important!
+# Array for level data
+# Note that the events use lambda functions in order to pass functions as data
 levels = [
     Level(name="Demo",
           time=30,

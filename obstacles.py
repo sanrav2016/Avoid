@@ -1,3 +1,7 @@
+# Obstacles.py
+# Manages the dots, or "obstacles"
+# Note: the dots were initially supposed to be obstacles that decreased the player's health
+
 import pygame, random, mechanics, screen, levels
 
 class Obstacle():
@@ -13,6 +17,9 @@ class Obstacle():
         pygame.draw.circle(screen.surface, self.color, coord, 3, 3)
 
 obstacles_list = []
+# Function to generate obstacles for each new level
+# Based on randomness and ensures no playthrough of a level will be the exact same
+# The same principle is used for the void
 def generate_obstacles():
     global obstacles_list
     obstacles_list = []
@@ -37,6 +44,8 @@ def draw_obstacles(time):
         if y < 0 or y > screen.height:
             obstacle.motion.change_motion(time, init_velocity_y=-obstacle.motion.init_velocity_y)
 
+# Checks if the player collides with the dot to give the player health
+# The function for collision is in Mechanics.py
 def check_collide(player):
     level = levels.levels[levels.level]
     for obstacle in obstacles_list:

@@ -1,12 +1,19 @@
+# Main.py
+# Main script to run
+
+# Import all libraries
 import sys, menu, math, obstacles, pygame, player, screen, void, levels, random
 
+# Initialize PyGame
 pygame.init()
 
 music = pygame.mixer.music
 
+# Frame rate is set to 60
 frames = 0
 FRAME_RATE = 60
 
+# Global variables to keep track of game stage
 game_playing = False
 game_lost = False
 game_lost_delay_finished = False
@@ -15,19 +22,29 @@ game_lost_delay_finished = False
 
 intro_run = False
 
+# Pygame clock - runs the game at the desired frame rate
+# It compensates for lag and makes sure the game will run at the same speed on
+# lower-performance devices as it would on higher-performance ones
 clock = pygame.time.Clock()
 
+# Instantiate player
 player = player.Player(rect=pygame.Rect(0, 0, 30, 30))
 player.motion.change_motion(time=0,
                      origin=screen.center,
                      radius=200)
 
+# Instantiate void
 void = void.Void(rect=pygame.Rect(0, 0, 10, 10))
 void.motion.change_motion(time=0,
                      origin=screen.center,
                      radius=math.sqrt(screen.width ** 2 + screen.height ** 2),
                      start_angle=0.5 * math.pi)
 
+# Beginning of render loop
+# Basic processes to run each time a frame is drawn
+#  - Tick the clock
+#  - Program "esc" to quit
+#  - Erase the previous frame
 def render_loop_start(events):
     global frames
     time = frames / FRAME_RATE
@@ -41,6 +58,8 @@ def render_loop_start(events):
     screen.surface.fill(screen.colors["black"])
     return time
 
+# End of frame
+# Draw "quit" button and "menu" if playing game
 def render_loop_end(events):
     global frames
     quit_rect = pygame.Rect(10, 10, 60, 40)
@@ -63,6 +82,9 @@ def render_loop_end(events):
     pygame.display.flip()
     frames += 1
 
+# Run when a level starts
+# Controls the level's music and player and void motion settings
+# Also causes the 1 second delay following the press of the Start button on the title screen
 def init_game():
     global intro_run
     intro_run = True
@@ -105,6 +127,9 @@ def init_game():
                               acceleration=0,
                               start_angle=0.5 * math.pi)
 
+# Draw loop
+# Checks to see if the game is won or lost. If so, run processes as needed (show messages)
+# If the game is still playing, update the motion of all objects and draw them to the screen
 def draw_loop(time):
     global game_playing, game_lost, game_lost_delay_finished, game_won, game_won_delay_finished
     level = levels.levels[levels.level]
@@ -116,7 +141,7 @@ def draw_loop(time):
             music.play()
             game_lost_delay_finished = True
         screen.text("Game over", screen.colors["red"], screen.center, screen.font, 60)
-        consolation = ["The void compels you.", "Mastery requires patience.", "Do not fret, not just yet.", "You were supposed to avoid it.",
+        consolation = ["The void compels you.", "Mastery requires patience.", "Do not fret, not just yet.", "You were sup6posed to avoid it.",
                        "Click Menu to play again. You know you want to.", "Keep calm and carry on.", "So close, yet so far.", "*generic consolation message*"]
         if not level.consolation:
             level.consolation = random.choice(consolation)
@@ -160,12 +185,14 @@ def draw_loop(time):
         game_lost = True
     if levels.current_timer <= 0:
         game_won = True
+    # Timer and health
     screen.text("❤", screen.colors["pink"], (screen.width - 135, 45), screen.unicode_font, 40)
     screen.text(str(player.health), screen.colors["pink"], (screen.width - 60, 50), screen.font, 40)
     screen.text("🕑", screen.colors["lightblue"], (screen.width - 180, 100), screen.unicode_font, 40)
     screen.text(levels.str_time(levels.current_timer), screen.colors["lightblue"], (screen.width - 80, 105), screen.font, 40)
     level.run_events(player, void, time)
 
+# Intro story: runs at the very beginning
 def intro(time):
     global intro_run
     if time < 5:
@@ -177,6 +204,8 @@ def intro(time):
     elif time < 25:
         screen.image("images/intro/4.png", screen.center)
 
+# Main loop, takes care of the above functions and runs them as necessary
+# Is controlled by the global variables from earlier
 while 1:
     events = pygame.event.get()
     time = render_loop_start(events)

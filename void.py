@@ -1,5 +1,9 @@
+# Void.py
+# Code for the void behavior
+
 import pygame, random, math, mechanics, screen, levels
 
+# Void class
 class Void():
     def __init__(self, rect):
         self.rect = rect
@@ -11,6 +15,10 @@ class Void():
         self.reflect = []
         self.curve_offset = 100000
 
+    # The void is just a point which follows circular motion
+    # It is drawn using several arcs which are bunched closely together and move as one
+    # Note: we initially tried to use adjacent lines but it did not look that good
+    # It forms a sector shape
     def draw(self, time):
         self.rect.left, self.rect.top = self.motion.coordinate(time)
         angle = self.motion.angle(time)
@@ -28,11 +36,16 @@ class Void():
             color = self.color
             if self.collide: color = self.hover_color
             pygame.draw.arc(screen.surface, color, rect, angle1, angle2)
+            # Handling reflections of the void
+            # Reflections are present in Levels.py
             for r in self.reflect:
                 new_angle1 = angle1 + r
                 new_angle2 = angle2 + r
                 pygame.draw.arc(screen.surface, color, rect, new_angle1, new_angle2)
 
+    # Custom change motion function which connects to the original change motion function in Mechanics.py
+    # This is a custom made function to simplify void behavior at the start of each level
+    # It can also be made to manipulate the data set by the original function
     def change_motion(self, time, origin=None, angle=None, v=None, a=None):
         if origin == None and angle == None and v == None and a == None:
             level = levels.levels[levels.level]
@@ -49,6 +62,8 @@ class Void():
             if v == None: v = self.motion.current_velocity(time)
             if a == None: a = self.motion.acceleration
             self.motion.change_motion(time=time, origin=origin, init_velocity=v, acceleration=a, start_angle=angle)
+
+    # Functions used in different levels
 
     def change_size(self, change):
         self.angle_offset += change
@@ -71,6 +86,9 @@ class Void():
     def set_reflect(self, arr):
         self.reflect = arr
 
+    # Important!
+    # Checks to see if the player collides with the void
+    # This is done simply by seeing if the angle of the player is between the two angles of the void
     def check_collide(self, time, player):
         void_angle = self.motion.angle(time) % (2 * math.pi)
         player_angle = player.motion.angle(time) % (2 * math.pi)
