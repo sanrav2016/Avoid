@@ -9,7 +9,8 @@ music_playing = False
 menu_open = True
 menu_options = []
 for level in levels.levels:
-    menu_options.append(level.name)
+    if level.name != "Secret Level":
+        menu_options.append(level.name)
 selected_menu_option = 0
 
 # menu loop, runs while the menu is open
@@ -21,7 +22,7 @@ def menu_loop(time, events):
         music_playing = True
     screen.surface.fill(screen.colors["black"])
     # Title image
-    screen.image("images/title.png", (screen.width / 2, screen.height / 2 - 100), scale=0.7)
+    screen.image("images/title.png", (screen.width / 2, screen.height / 2 - 100), scale=0.5)
     # Scrollable menu
     screen.text(menu_options[selected_menu_option], screen.colors["white"], (screen.width / 2, screen.height / 2 + 50), screen.font, 30)
     rect_left = None

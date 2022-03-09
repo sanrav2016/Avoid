@@ -45,17 +45,38 @@ void.motion.change_motion(time=0,
 #  - Tick the clock
 #  - Program "esc" to quit
 #  - Erase the previous frame
+
+pressed_keys = []
+
+# Fun Easter egg/advanced feature - the Konami code
+# Was used in many 80s games like Frogger
+# If the code is pressed quickly, the secret level will begin!
+konami = [pygame.K_UP, pygame.K_UP, pygame.K_DOWN, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_b, pygame.K_a]
+
+current_konami_index = 0
+
 def render_loop_start(events):
-    global frames
+    global frames, current_konami_index, pressed_keys
     time = frames / FRAME_RATE
     clock.tick(FRAME_RATE)
     for event in events:
         if event.type == pygame.KEYDOWN:
+            pressed_keys.append([event.key, time])
             if event.key == pygame.K_ESCAPE:
                 sys.exit()
         if event.type == pygame.QUIT:
             sys.exit()
     screen.surface.fill(screen.colors["black"])
+    for key_arr in pressed_keys:
+        key = key_arr[0]
+        if current_konami_index == len(konami):
+            secret_level()
+            current_konami_index = 0
+            pressed_keys = []
+        if key == konami[current_konami_index]:
+            current_konami_index += 1
+        else:
+            current_konami_index = 0
     return time
 
 # End of frame
@@ -141,7 +162,7 @@ def draw_loop(time):
             music.play()
             game_lost_delay_finished = True
         screen.text("Game over", screen.colors["red"], screen.center, screen.font, 60)
-        consolation = ["The void compels you.", "Mastery requires patience.", "Do not fret, not just yet.", "You were sup6posed to avoid it.",
+        consolation = ["The void compels you.", "Mastery requires patience.", "Do not fret, not just yet.", "You were supposed to avoid it.",
                        "Click Menu to play again. You know you want to.", "Keep calm and carry on.", "So close, yet so far.", "*generic consolation message*"]
         if not level.consolation:
             level.consolation = random.choice(consolation)
@@ -204,6 +225,11 @@ def intro(time):
     elif time < 25:
         screen.image("images/intro/4.png", screen.center)
 
+# Secret level runs when the Konami code is pressed
+def secret_level():
+    levels.level = 6
+    menu.menu_open = False
+
 # Main loop, takes care of the above functions and runs them as necessary
 # Is controlled by the global variables from earlier
 while 1:
@@ -212,6 +238,8 @@ while 1:
     if menu.menu_open:
         if game_playing:
             game_playing = False
+            music.pause()
+            menu.music_playing = False
         menu.menu_loop(time, events)
     else:
         if not game_playing:

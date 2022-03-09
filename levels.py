@@ -102,22 +102,40 @@ levels = [
                     end=5,
                     function=lambda: local_void.change_motion(local_time, angle=local_player.motion.angle(local_time) - 0.25 * math.pi)
               ),
+              Event(start=6,
+                          end=9,
+                          function=lambda: screen.text("Weren't expecting that, were you?", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
               Event(start=10,
                     end=10,
                     function=lambda: local_void.change_motion(local_time, angle=local_player.motion.angle(local_time) - 0.25 * math.pi)
               ),
+              Event(start=11,
+                          end=14,
+                          function=lambda: screen.text("Or that?", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
               Event(start=15,
                     end=15,
                     function=lambda: local_void.change_motion(local_time, angle=local_player.motion.angle(local_time) - 0.25 * math.pi)
               ),
+              Event(start=16,
+                          end=19,
+                          function=lambda: screen.text("Look out! Haha!", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
               Event(start=20,
                     end=20,
                     function=lambda: local_void.change_motion(local_time, angle=local_player.motion.angle(local_time) - 0.25 * math.pi)
               ),
+              Event(start=21,
+                          end=24,
+                          function=lambda: screen.text("Last one, I promise.", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
               Event(start=25,
                     end=25,
                     function=lambda: local_void.change_motion(local_time, angle=local_player.motion.angle(local_time) - 0.25 * math.pi)
-              )
+              ),
+              Event(start=23,
+                          end=29,
+                          function=lambda: screen.text("Wow, you're still alive.", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+              Event(start=23,
+                          end=29,
+                          function=lambda: screen.text("Gotta hand it to you; you're a fighter.", screen.colors["white"], (screen.width / 2, 120), screen.font, 30))
           ],
         music="L1.mp3"
     ),
@@ -134,6 +152,12 @@ levels = [
                     end=3,
                     function=lambda: (screen.text("Level 2: Spirals", screen.colors["orange"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
               ),
+              Event(start=3,
+                          end=8,
+                          function=lambda: screen.text("Hey, what's your favorite ice cream flavor?", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+              Event(start=3,
+                          end=8,
+                          function=lambda: screen.text("Mine are swirls!", screen.colors["white"], (screen.width / 2, 120), screen.font, 30)),
               Event(start=5,
                     end=5,
                     function=lambda: local_void.change_curve_offset(-95000, goal=5000)
@@ -146,10 +170,22 @@ levels = [
                     end=15,
                     function=lambda: local_void.change_curve_offset(-3, goal=-500)
               ),
+              Event(start=14,
+                          end=19,
+                          function=lambda: screen.text("Are swirls a flavor, though?", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+              Event(start=14,
+                          end=19,
+                          function=lambda: screen.text("Technically they're shapes...", screen.colors["white"], (screen.width / 2, 120), screen.font, 30)),
               Event(start=15,
                     end=20,
                     function=lambda: local_void.change_curve_offset(3, goal=500)
               ),
+                Event(start=21,
+                          end=29,
+                          function=lambda: screen.text("You seem to be doing really well.", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+                Event(start=21,
+                          end=29,
+                          function=lambda: screen.text("I'll just have to up my game then. Wahaha!", screen.colors["white"], (screen.width / 2, 120), screen.font, 30)),
               Event(start=20,
                     end=25,
                     function=lambda: local_void.change_curve_offset(-3, goal=-500)
@@ -170,10 +206,28 @@ levels = [
                     end=3,
                     function=lambda: screen.text("Level 3: Widening", screen.colors["green"], (screen.width / 2, 60), screen.font, 30)
                     ),
+                    Event(start=3,
+                          end=6,
+                          function=lambda: screen.text("Oh dear...I think something's happening to me...", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+                    Event(start=6,
+                          end=10,
+                          function=lambda: screen.text("I'm about to hit a growth spurt!", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+                    Event(start=10,
+                          end=15,
+                          function=lambda: screen.text("AAAAAAH!", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
                     Event(start=10,
                           end=15,
                           function=lambda: local_void.change_size(1/225)
                     ),
+                    Event(start=18,
+                          end=22,
+                          function=lambda: screen.text("Wow, that was painful.", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+                    Event(start=22,
+                          end=26,
+                          function=lambda: screen.text("But not as painful as this!", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+                    Event(start=26,
+                          end=30,
+                          function=lambda: screen.text("AAAAAAH!", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
                     Event(start=26,
                           end=30,
                           function=lambda: local_void.change_size(1/225)
@@ -194,10 +248,22 @@ levels = [
                           end=3,
                           function=lambda: screen.text("Level 4: Invisibility", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)
                     ),
+                    Event(start=3,
+                          end=6,
+                          function=lambda: screen.text("In this level, you turn invisible.", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
                     Event(start=5,
                           end=10,
                           function=lambda: local_void.change_color(screen.colors["black"], -5)
                     ),
+                    Event(start=6,
+                          end=10,
+                          function=lambda: screen.text("Just kidding! I do.", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+                    Event(start=20,
+                          end=24,
+                          function=lambda: screen.text("Now you see me...", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
+                    Event(start=24,
+                          end=28,
+                          function=lambda: screen.text("Now you don't...", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
                     Event(start=10,
                           end=15,
                           function=lambda: local_void.change_color(screen.colors["white"], 5)
@@ -219,7 +285,7 @@ levels = [
     ),
     Level(name="Level 5",
           time=30,
-          penalty=3,
+          penalty=2,
           gain=6,
           v=[3, 5],
           a=[1, 3],
@@ -230,6 +296,10 @@ levels = [
                           end=3,
                           function=lambda: (screen.text("Level 5: Mirror", screen.colors["pink"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
                     ),
+                    Event(start=3,
+                          end=6,
+                          function=lambda: screen.text("Hey, do you like surprises?", screen.colors["white"], (screen.width / 2, 60),
+                                                 screen.font, 30)),
                     Event(start=7,
                           end=7,
                           function=lambda: (local_void.set_reflect([math.pi]), local_void.motion.change_motion(time=local_time, init_velocity=7, acceleration=0))
@@ -238,6 +308,10 @@ levels = [
                           end=8,
                           function=lambda: (local_void.set_reflect([]), local_void.motion.change_motion(time=local_time, init_velocity=3, acceleration=-1))
                     ),
+                    Event(start=9,
+                          end=12,
+                          function=lambda: screen.text("You probably didn't like that one!", screen.colors["white"], (screen.width / 2, 60),
+                                                 screen.font, 30)),
                     Event(start=12.5,
                           end=12.5,
                           function=lambda: (local_void.set_reflect([2 * math.pi / 3, 4 * math.pi / 3]), local_void.motion.change_motion(time=local_time, init_velocity=8, acceleration=0))
@@ -246,6 +320,10 @@ levels = [
                           end=13.5,
                           function=lambda: (local_void.set_reflect([]), local_void.motion.change_motion(time=local_time, init_velocity=3, acceleration=-1))
                     ),
+                    Event(start=14,
+                          end=17,
+                          function=lambda: screen.text("Or that!", screen.colors["white"], (screen.width / 2, 60),
+                                                 screen.font, 30)),
                     Event(start=18,
                           end=18,
                           function=lambda: (local_void.set_reflect([2 * math.pi / 3, 4 * math.pi / 3]), local_void.motion.change_motion(time=local_time, init_velocity=8, acceleration=0))
@@ -266,12 +344,41 @@ levels = [
                           end=23,
                           function=lambda: (local_void.set_reflect([]), local_void.motion.change_motion(time=local_time, init_velocity=3, acceleration=-1))
                     ),
+                    Event(start=23,
+                          end=26,
+                          function=lambda: screen.text("Phew, starting to get dizzy...", screen.colors["white"], (screen.width / 2, 60),
+                                                 screen.font, 30)),
                     Event(start=26,
                           end=26,
                           function=lambda: (local_void.set_reflect([0.5 * math.pi, math.pi, 1.5 * math.pi]), local_void.motion.change_motion(time=local_time, acceleration=4))
+                    ),
+                    Event(start=27,
+                          end=30,
+                          function=lambda: screen.text("By the way, have you ever heard of the Konami Code?", screen.colors["white"], (screen.width / 2, 60),
+                                                 screen.font, 30)
                     )
           ],
         music="L5.mp3"
+    ),
+Level(name="Secret Level",
+          time=30,
+          penalty=3,
+          gain=6,
+          v=[3, 5],
+          a=[1, 3],
+          void_color=screen.colors["pink"],
+          void_hover_color=screen.colors["lightblue"],
+          events=[
+                    Event(start=0,
+                          end=3,
+                          function=lambda: (screen.text("SECRET LEVEL", screen.colors["pink"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
+                    ),
+                    Event(start=3,
+                          end=6,
+                          function=lambda: screen.text("Hey, do you like surprises?", screen.colors["white"], (screen.width / 2, 60),
+                                                 screen.font, 30))
+          ],
+        music="L6.mp3"
     )
 ]
 
