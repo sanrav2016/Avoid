@@ -1,5 +1,5 @@
 # Main.py
-# Main script to run
+# Main script
 
 # Import all libraries
 import sys, menu, math, obstacles, pygame, player, screen, void, levels, random
