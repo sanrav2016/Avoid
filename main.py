@@ -61,22 +61,24 @@ def render_loop_start(events):
     clock.tick(FRAME_RATE)
     for event in events:
         if event.type == pygame.KEYDOWN:
-            pressed_keys.append([event.key, time])
+            if menu.menu_open:
+                pressed_keys.append([event.key, time])
             if event.key == pygame.K_ESCAPE:
                 sys.exit()
         if event.type == pygame.QUIT:
             sys.exit()
     screen.surface.fill(screen.colors["black"])
-    for key_arr in pressed_keys:
-        key = key_arr[0]
-        if current_konami_index == len(konami):
-            secret_level()
-            current_konami_index = 0
-            pressed_keys = []
-        if key == konami[current_konami_index]:
-            current_konami_index += 1
-        else:
-            current_konami_index = 0
+    if menu.menu_open:
+        for key_arr in pressed_keys:
+            key = key_arr[0]
+            if current_konami_index == len(konami):
+                secret_level()
+                current_konami_index = 0
+                pressed_keys.clear()
+            if key == konami[current_konami_index]:
+                current_konami_index += 1
+            else:
+                current_konami_index = 0
     return time
 
 # End of frame
