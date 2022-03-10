@@ -25,7 +25,7 @@ class Void():
         diagonal = math.sqrt(screen.width ** 2 + screen.height ** 2)
         draw_range = diagonal / 2
         time_range = 3
-        if time < time_range:
+        if time < time_range and levels.level != 6:
             draw_range *= (time / time_range)
         curve_offset = self.curve_offset if self.curve_offset != 0 else 100000
         origin = list(self.motion.origin)

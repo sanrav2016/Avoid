@@ -130,10 +130,10 @@ levels = [
                     end=25,
                     function=lambda: local_void.change_motion(local_time, angle=local_player.motion.angle(local_time) - 0.25 * math.pi)
               ),
-              Event(start=23,
+              Event(start=24,
                           end=29,
                           function=lambda: screen.text("Wow, you're still alive.", screen.colors["white"], (screen.width / 2, 60), screen.font, 30)),
-              Event(start=23,
+              Event(start=24,
                           end=29,
                           function=lambda: screen.text("Gotta hand it to you; you're a fighter.", screen.colors["white"], (screen.width / 2, 120), screen.font, 30))
           ],
@@ -360,23 +360,146 @@ levels = [
           ],
         music="L5.mp3"
     ),
-Level(name="Secret Level",
+    Level(name="Secret Level",
           time=30,
           penalty=3,
-          gain=6,
-          v=[3, 5],
-          a=[1, 3],
-          void_color=screen.colors["pink"],
-          void_hover_color=screen.colors["lightblue"],
+          gain=3,
+          v=[0, 1],
+          a=[0, 1],
+          void_color=screen.colors["black"],
+          void_hover_color=screen.colors["white"],
           events=[
                     Event(start=0,
                           end=3,
                           function=lambda: (screen.text("SECRET LEVEL", screen.colors["pink"], (screen.width / 2, 60), screen.font, 30), screen.text("WARNING: FLASHING LIGHTS, DIZZYING EFFECTS", screen.colors["red"], (screen.width / 2, 120), screen.font, 40))
                     ),
+                    Event(start=0,
+                          end=0.1,
+                          function=lambda: local_void.change_motion(local_time, angle=math.pi)
+                          ),
+                    Event(start=0,
+                          end=0.7,
+                          function=lambda: local_void.change_color(screen.colors["red"])
+                          ),
+                    Event(start=0.7,
+                          end=0.9,
+                          function=lambda: (local_void.change_color(screen.colors["orange"]), local_void.change_motion(local_time, angle=2 * math.pi))
+                          ),
+                    Event(start=0.9,
+                          end=1.05,
+                          function=lambda: (local_void.change_color(screen.colors["yellow"]), local_void.change_motion(local_time, angle=0.7 * math.pi))
+                          ),
+                    Event(start=1.05,
+                          end=1.2,
+                          function=lambda: (local_void.change_color(screen.colors["green"]), local_void.change_motion(local_time, angle=1.3 * math.pi))
+                          ),
+                    Event(start=1.2,
+                          end=1.4,
+                          function=lambda: (local_void.change_color(screen.colors["lightblue"]), local_void.change_motion(local_time, angle=0.1 * math.pi))
+                          ),
+                    Event(start=1.4,
+                          end=1.6,
+                          function=lambda: (local_void.change_color(screen.colors["grey"]), local_void.change_motion(local_time, angle=0.4 * math.pi))
+                          ),
+                    Event(start=2.1,
+                          end=2.7,
+                          function=lambda: (local_void.change_color(screen.colors["red"]), local_void.change_motion(local_time, angle=math.pi))
+                          ),
+                    Event(start=2.7,
+                          end=2.85,
+                          function=lambda: (local_void.change_color(screen.colors["orange"]), local_void.change_motion(local_time, angle=2 * math.pi))
+                          ),
+                    Event(start=2.85,
+                          end=3,
+                          function=lambda: (local_void.change_color(screen.colors["yellow"]), local_void.change_motion(local_time, angle=0.7 * math.pi))
+                          ),
                     Event(start=3,
-                          end=6,
-                          function=lambda: screen.text("Hey, do you like surprises?", screen.colors["white"], (screen.width / 2, 60),
-                                                 screen.font, 30))
+                          end=3.15,
+                          function=lambda: (local_void.change_color(screen.colors["green"]), local_void.change_motion(local_time, angle=1.3 * math.pi))
+                          ),
+                    Event(start=3.15,
+                          end=3.3,
+                          function=lambda: (local_void.change_color(screen.colors["lightblue"]), local_void.change_motion(local_time, angle=0.1 * math.pi))
+                          ),
+                    Event(start=3.3,
+                          end=3.5,
+                          function=lambda: (local_void.change_color(screen.colors["grey"]), local_void.change_motion(local_time, angle=0.4 * math.pi))
+                          ),
+                    Event(start=4,
+                          end=4,
+                          function=lambda: local_void.change_motion(local_time, v=2)
+                          ),
+                    Event(start=8.5,
+                          end=8.5,
+                          function=lambda: (local_void.change_color(screen.colors["green"]), local_void.change_motion(local_time, v=0), local_void.set_reflect([math.pi, 2 * math.pi]), local_void.change_motion(local_time, angle=0.4 * math.pi))
+                          ),
+                    Event(start=8.8,
+                          end=8.8,
+                          function=lambda: (local_void.change_color(screen.colors["lightblue"]), local_void.set_reflect([2 * math.pi / 3, (2/3) * 2 * math.pi]), local_void.change_motion(local_time, angle=math.pi))
+                          ),
+                    Event(start=9.1,
+                          end=9.1,
+                          function=lambda: (local_void.change_color(screen.colors["yellow"]), local_void.set_reflect([0.5 * math.pi, math.pi, 1.5 * math.pi]), local_void.change_motion(local_time, angle=1.6 * math.pi))
+                          ),
+                    Event(start=9.3,
+                          end=9.3,
+                          function=lambda: (local_void.change_color(screen.colors["grey"]), local_void.change_motion(local_time, v=2), local_void.set_reflect([]))
+                          ),
+                    Event(start=12.3,
+                          end=12.3,
+                          function=lambda: (local_void.change_color(screen.colors["white"]), local_void.change_motion(local_time, v=7), local_void.set_reflect([0.5 * math.pi, math.pi, 1.5 * math.pi]))
+                          ),
+                    Event(start=13.1,
+                          end=13.1,
+                          function=lambda: (local_void.change_color(screen.colors["red"]), local_void.change_motion(local_time, v=-7))
+                          ),
+                    Event(start=14.5,
+                          end=14.5,
+                          function=lambda: (local_void.change_color(screen.colors["grey"]), local_void.set_reflect([]), local_void.change_motion(local_time, v=2))
+                          ),
+                    Event(start=16.1,
+                          end=16.1,
+                          function=lambda: (local_void.change_color(screen.colors["red"]), local_void.change_motion(local_time, v=-7))
+                          ),
+                    Event(start=18,
+                          end=18,
+                          function=lambda: (local_void.change_color(screen.colors["grey"]), local_void.change_motion(local_time, v=2))
+                          ),
+                    Event(start=20,
+                          end=20,
+                          function=lambda: (local_void.change_color(screen.colors["lightblue"]), local_void.set_reflect([math.pi]))
+                          ),
+                    Event(start=21,
+                          end=21,
+                          function=lambda: (local_void.change_color(screen.colors["orange"]), local_void.set_reflect([]))
+                          ),
+                    Event(start=22,
+                        end=22,
+                        function=lambda: (
+                        local_void.change_color(screen.colors["pink"]), local_void.set_reflect([math.pi]))
+                        ),
+                    Event(start=23,
+                        end=23,
+                        function=lambda: (local_void.change_color(screen.colors["yellow"]), local_void.set_reflect([]))
+                    ),
+                    Event(start=24,
+                        end=24,
+                        function=lambda: (
+                        local_void.change_color(screen.colors["red"]), local_void.set_reflect([math.pi]))
+                        ),
+                    Event(start=25,
+                        end=25,
+                        function=lambda: (local_void.change_color(screen.colors["lightgrey"]), local_void.set_reflect([]))
+                    ),
+                    Event(start=26,
+                        end=26,
+                        function=lambda: (
+                        local_void.change_color(screen.colors["green"]), local_void.set_reflect([math.pi]))
+                        ),
+                    Event(start=27,
+                        end=27,
+                        function=lambda: (local_void.change_color(screen.colors["blue"]), local_void.set_reflect([]))
+                    )
           ],
         music="L6.mp3"
     )

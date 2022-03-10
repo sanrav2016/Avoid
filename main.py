@@ -134,6 +134,7 @@ def init_game():
     game_won_delay_finished = False
     frames = 0
     levels.current_timer = level.time
+    void.origin = screen.center
     void.color = level.void_color
     void.hover_color = level.void_hover_color
     void.reflect = []
@@ -192,7 +193,9 @@ def draw_loop(time):
         screen.text(level.celebration, screen.colors["white"], l, screen.font, 30)
         return
     void.draw(time)
-    obstacles.draw_obstacles(time)
+    if levels.level != 6 or levels.level == 6 and time >= 4:
+        obstacles.draw_obstacles(time)
+        obstacles.check_collide(player)
     player.draw(time)
     void.change_motion(time)
     void.check_collide(time, player)
@@ -200,7 +203,6 @@ def draw_loop(time):
         player.health -= level.penalty
         player.health = int(player.health)
         if player.health < 0: player.health = 0
-    obstacles.check_collide(player)
     player.control(time)
     player.change_motion(time)
     levels.current_timer = levels.levels[levels.level].time - time
